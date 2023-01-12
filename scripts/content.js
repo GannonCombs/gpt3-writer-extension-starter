@@ -1,4 +1,4 @@
-const insert = (content) => {
+const insertCalmly = (content) => {
     // Find Calmly editor input section
     const elements = document.getElementsByClassName('droid');
 
@@ -34,13 +34,21 @@ const insert = (content) => {
     return true;
   };
 
+  const insertGoogleDocs = (content) => {
+    var doc = DocumentApp.getActiveDocument();
+    var body = doc.getBody();
+    body.appendParagraph("Fighting Genghis the Jengis!");
+  };
+
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.message === 'inject') {
       const { content } = request;
   
       console.log(content);
 
-      const result = insert(content);
+      // Rotate based on app used.
+      //const result = insertGoogleDocs(content);
+      const result = insertCalmly(content);
 
       // If something went wrong, send a failed status
       if (!result) {
